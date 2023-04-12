@@ -1,10 +1,12 @@
 var express = require('express');
+const bull_controlers= require('../controllers/bull');
+
 var router = express.Router();
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('bull', { title: 'Search Results bull' });
-});
-
-
+/* GET bull */
+router.get('/', bull_controlers.bull_view_all_Page );
 module.exports = router;
+
+
+
+
