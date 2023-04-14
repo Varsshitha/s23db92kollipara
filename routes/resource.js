@@ -14,6 +14,7 @@ router.delete('/bull/:id', bull_controller.bull_delete);
 // PUT request to update Costume.
 router.put('/bull/:id', bull_controller.bull_update_put);
 // GET request for one Costume.
+
 router.get('/bull/:id', bull_controller.bull_detail);
 // GET request for list of all Costume items.
 router.get('/bull', bull_controller.bull_list);
