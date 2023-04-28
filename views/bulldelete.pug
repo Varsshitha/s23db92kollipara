@@ -1,0 +1,49 @@
+extends layout
+block content
+ h1= title 
+ if (toShow == null)
+  h2 No instance to delete
+ else
+  - let Bull_id = toShow._id
+  - let Bull_Breed = toShow.Bull_Breed
+  - let Bull_Size = toShow.Bull_Size
+  - let Bull_Value = toShow.Bull_Value
+  - let actionid = "/resource/bull/" + Bull_id
+  script let actionid = "#{actionid}"
+  div
+   div.row
+    div(class='bullAttr mr-3') Bull_id is:
+    div #{Bull_id}
+   div.row
+    div(class='bullAttr mr-3') Bull_Breed is:
+    div #{Bull_Breed}
+   div.row
+    div(class='bullAttr mr-3') Bull_Size is:
+    div #{Bull_Size}
+   div.row
+    div(class='bullAttr mr-3') Bull_Value is:
+    div #{Bull_Value}
+  button(class="btn btn-danger m-2" onclick="deleteOnid()") Delete
+  button(class="btn btn-secondary m-2" onclick="cancel()") Cancel
+ script.
+  function cancel() {
+   // Go back to the home page for the costume collection
+   window.location.href='/bull'
+  }
+ script.
+  function deleteOnid() {
+   console.log("starting delete")
+   // delete first
+   fetch(actionid, {
+    method: 'DELETE'       
+   }).then((resp) => {
+    return resp.json();   // or resp.text() or whatever the server sends
+   }).then((body) => {
+    alert("Delete succeded")
+    window.location.href='/costumes'
+    // TODO handle body
+   }).catch((error) => {
+    // TODO handle error
+    alert("Delete failed " + error )
+   });
+  }

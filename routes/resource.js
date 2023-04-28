@@ -18,6 +18,8 @@ router.put('/bull/:id', bull_controller.bull_update_put);
 router.get('/bull/:id', bull_controller.bull_detail);
 // GET request for list of all Costume items.
 router.get('/bull', bull_controller.bull_list);
+
 module.exports = router;
+
 
 

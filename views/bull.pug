@@ -2,20 +2,22 @@ extends layout
 
 block content
   h1= title
-  //- - let results = [{Bull_breed:"Abergele",Bull_Size:"small",Bull_value:40},{Bull_breed:"Sibi Bhagnari",Bull_Size:"Medium",Bull_value:75},{Bull_breed:"Gir",Bull_Size:"Large",Bull_value:100}]
-  - let result = results
+  //- var ice=[{ice_name:"chocolate",number_of_scoops:"3",ice_price:50},{ice_name:"blackberry",number_of_scoops:"2",ice_price:40},{ice_name:"butterscotch",number_of_scoops:"5",ice_price:60}]
+  - let result =results
+  - let create = `dispatch(\"/bull/create\")`
+  button.btn( class="btn-info", onclick= create) Add new bull
   div(class="container-fluid")
-    div(class="row")
-      each item,index in result
-        div(class="col-sm-2",onClick=`buy(${index})`)
-          p breed is #{item.Bull_Breed}
-          p size is #{item.Bull_Size}
-          p value is #{item.Bull_Value}
+  div(class="row")
+   each i,index  in result
+      - let destination = `dispatch(\"/bull/update?id=${result._id}\")`
+      - let detail = `dispatch(\"/bull/detail/?id=${result._id}")`
+      - let deletesoaps = `dispatch(\"/bull/delete/?id=${result._id}")`
+      div(class="col-sm-2" onclick =`buy(${index})`) #{i.Bull_Breed}, #{i.Bull_Size}, #{i.Bull_Value}
+      button.btn( class="btn-primary ml-1", onclick= destination) Update
+      button.btn( class="btn-success", onclick= detail) Details
+      button.btn( class="btn-dark", onclick= deletesoaps) Delete
   script.
-    function buy(thing) {
-      thing = thing+1;
-      alert(`You Purchased Item ${thing}`);
+    function dispatch(path){
+    window.location.href=path
     }
-          
-         
     

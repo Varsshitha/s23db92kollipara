@@ -1,0 +1,21 @@
+extends layout
+
+block content
+
+  - let Bull_id = toShow._id
+  - let Bull_Breed = toShow.Bull_Breed
+  - let Bull_Size = toShow.Bull_Size
+  - let Bull_Value = toShow.Bull_Value
+  div
+    div.row
+        div(class='bullAttr mr-3') bull ID is:
+        div #{Bull_id}
+    div.row
+        div(class='bullAttr mr-3') bull breed is:
+        div #{Bull_Breed}
+    div.row
+        div(class='bullAttr mr-3') bull Size is:
+        div #{Bull_Size}
+    div.row
+        div(class='bullAttr mr-3') bull value is:
+        div #{Bull_Value}

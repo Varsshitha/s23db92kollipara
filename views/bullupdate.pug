@@ -1,0 +1,40 @@
+extends layout
+
+block content
+  h1= title
+  - let Bull_id = toShow._id
+  - let Bull_Breed = toShow.Bull_Breed
+  - let Bull_Size = toShow.Bull_Size
+  - let Bull_Value = toShow.Bull_Value
+  div.row(class='mb-2')
+    div.mr-1 ID is
+    div #{Bull_id}
+  - let actionid = "/resource/bull/" + Bull_id
+  form(id='bullForm', action= actionid, method="PUT")
+    div.form-group
+      label.bullAttr(for='Bull_Breed') Bull_Breed 
+      input#Bull_Breed(type='text', name='Bull_Breed', value= Bull_Breed )
+    div.form-group
+      label.bullAttr(for='Bull_Size') Bull_Size
+      input#cameras_resolution(type='text', name='Bull_Size', value= Bull_Size )
+    div.form-group
+      label.bullAttr(for='Bull_Value') cameras price
+      input#cameras_price(type='number', name='Bull_Value', value= Bull_Value )
+    input(type="submit")
+    script.
+      document.forms['bullForm'].addEventListener('submit', (event) => {
+        event.preventDefault();
+        // TODO do something here to show user that form is being submitted
+        fetch(event.target.action, {
+          method: 'PUT',
+          body: new URLSearchParams(new FormData(event.target)) // event.target is the form
+        }).then((resp) => {
+          return resp.json(); // or resp.text() or whatever the server sends
+        }).then((body) => {
+          alert("Update succeded")
+          // TODO handle body
+        }).catch((error) => {
+          // TODO handle error
+          alert("Update failed " + error )
+        });
+      });

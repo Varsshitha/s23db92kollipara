@@ -6,3 +6,8 @@ body {
 a {
   color: #00B7FF;
 }
+.bullAttr {
+  background-color: green;
+  width: 120px;
+  }
+  

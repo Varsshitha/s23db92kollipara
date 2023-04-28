@@ -51,6 +51,19 @@ res.send(`{"error": ${err}}`);
 exports.bull_delete = function(req, res) {
 res.send('NOT IMPLEMENTED: bull delete DELETE ' + req.params.id);
 };
+// Handle Costume delete on DELETE.
+exports.bull_delete = async function(req, res) {
+    console.log("delete " + req.params.id)
+    try {
+    result = await bull.findByIdAndDelete( req.params.id)
+    console.log("Removed " + result)
+    res.send(result)
+    } catch (err) {
+    res.status(500)
+    res.send(`{"error": Error deleting ${err}}`);
+    }
+    };
+    
 // Handle Costume update form on PUT.
 exports.bull_update_put = function(req, res) {
     res.send('NOT IMPLEMENTED: kite update PUT' + req.params.id);
@@ -86,6 +99,62 @@ exports.bull_view_all_Page = async function(req, res) {
     res.send(`{"error": ${err}}`);
     }
     };
+
+
+    // Handle a show one view with id specified by query
+    exports.bull_view_one_Page = async function(req, res) {
+    console.log("single view for id " + req.query.id)
+    try{
+    results = await bull.findById( req.query.id)
+    res.render('bulldetail',
+    { title: 'bull Detail', toShow: results });
+    }
+    catch(err){
+    res.status(500)
+    res.send(`{'error': '${err}'}`);
+    }
+    };
+ 
+    // Handle building the view for creating a costume.
+// No body, no in path parameter, no query.
+// Does not need to be async
+exports.bull_create_Page = function(req, res) {
+console.log("create view")
+try{
+res.render('bullcreate', { title: 'bull Create'});
+}
+catch(err){
+res.status(500)
+res.send(`{'error': '${err}'}`);
+}
+};
+
+// Handle building the view for updating a costume.
+// query provides the id
+exports.bull_update_Page = async function(req, res) {
+console.log("update view for item "+req.query.id)
+try{
+results = await bull.findById( req.query.id)
+res.render('bullupdate', { title: 'bull Update', toShow: results });
+}
+catch(err){
+res.status(500)
+res.send(`{'error': '${err}'}`);
+}
+};
     
+// Handle a delete one view with id from query
+exports.bull_delete_Page = async function(req, res) {
+console.log("Delete view for id " + req.query.id)
+try{
+results = await bull.findById(req.query.id)
+res.render('bulldelete', { title: 'bull Delete', toShow:
+results });
+}
+catch(err){
+res.status(500)
+res.send(`{'error': '${err}'}`);
+}
+};
     
-    
+
